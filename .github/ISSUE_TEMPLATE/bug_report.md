@@ -1,6 +1,7 @@
 ---
 nome: relatório de bugs
 about: Cria um relatório para nos ajudar a melhorar
+
 ---
 
 ** Descreva o bug **
