@@ -1,5 +1,5 @@
 ---
-nome: relatório de bugs
+name: Descrição de Erro(bug)
 about: Cria um relatório para nos ajudar a melhorar
 ---
 
