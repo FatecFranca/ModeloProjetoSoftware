@@ -26,7 +26,7 @@ para dar uma explicação mais detalhada.
 Tente seguir as diretrizes [PSR-2] (https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 
 _Exemplo de estilo: _
-`` `php
+```php
 / **
  * Obtém uma prévia do email
  *
@@ -38,7 +38,7 @@ função public previewEmail (TemplateService $ templateService)
 {
     //
 }
-`` `
+```
 
 
 ## Traduções
