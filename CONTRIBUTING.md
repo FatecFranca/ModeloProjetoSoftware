@@ -5,7 +5,7 @@
 Por favor, discuta as mudanças conosco com antecedência para garantir que elas serão mescladas.
 
 ### Enviar solicitações de pull ()
- * [Fork] (https://github.com/invoiceninja/invoiceninja#fork-destination-box) o repositório [Invoice Ninja] (https://github.com/invoiceninja/invoiceninja)
+ * [Fork](https://github.com/invoiceninja/invoiceninja#fork-destination-box) o repositório [Invoice Ninja] (https://github.com/invoiceninja/invoiceninja)
  * Crie um novo branch com o nome `# issue_number-Short-description`
    * _Exemplo: _ `# 100-Adicionar-GoogleAnalytics`
  * Faça suas mudanças e cometa
@@ -16,6 +16,7 @@ Por favor, discuta as mudanças conosco com antecedência para garantir que elas
  * Atualize o [Changelog] (CHANGELOG.md)
 
 ### Algumas regras
+
 Para tornar o processo de contribuição agradável e fácil para qualquer pessoa, siga algumas regras:
  * Cada contribuição (bug ou característica) deve ter um [problema no Github] (https://github.com/invoiceninja/invoiceninja/issues)
 para dar uma explicação mais detalhada.
@@ -26,6 +27,7 @@ para dar uma explicação mais detalhada.
 Tente seguir as diretrizes [PSR-2] (https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 
 _Exemplo de estilo: _
+
 ```php
 / **
  * Obtém uma prévia do email
@@ -39,7 +41,3 @@ função public previewEmail (TemplateService $ templateService)
     //
 }
 ```
-
-
-## Traduções
-Por nos ajudar com a tradução do Invoice Ninja, por favor use [Transifex] (https://www.transifex.com/invoice-ninja/invoice-ninja/).
