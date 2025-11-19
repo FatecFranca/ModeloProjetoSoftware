@@ -1,6 +1,7 @@
 # SPEC KIT Framework - Modernização do Repositório ModeloProjetoSoftware
 
 **Status**: Draft  
+**Version**: 0.1.0  
 **Created**: 2025-11-19  
 **Last Updated**: 2025-11-19  
 **Owner**: FATEC Franca - Equipe de Gerenciamento de Projetos  
@@ -10,7 +11,7 @@
 
 ## Executive Summary
 
-Transformar o repositório ModeloProjetoSoftware em um framework moderno de gerenciamento de projetos de software baseado no SPEC KIT, implementando 9 comandos principais (analyze, clarify, implement, specify, taskstoissues, checklist, constitution, plan, tasks) que guiam equipes desde a especificação até a implementação de features, substituindo a abordagem tradicional PMBOK/RUP por um fluxo ágil e orientado a especificações.
+Transformar o repositório ModeloProjetoSoftware em um framework moderno de gerenciamento de projetos de software baseado no SPEC KIT, implementando 10 comandos principais (init, specify, clarify, analyze, plan, tasks, taskstoissues, checklist, implement, constitution) que guiam equipes desde a configuração inicial até a implementação de features, substituindo a abordagem tradicional PMBOK/RUP por um fluxo ágil e orientado a especificações.
 
 ---
 
@@ -41,7 +42,7 @@ O repositório ModeloProjetoSoftware atual utiliza uma abordagem tradicional de 
 Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos baseado em comandos que guia as equipes através de um fluxo estruturado: especificação → clarificação → análise → planejamento → tarefas → implementação. Cada comando é um prompt do GitHub Copilot que automatiza parte do processo.
 
 ### Key Features
-1. **Comandos Estruturados**: 9 comandos que cobrem todo o ciclo de vida da feature
+1. **Comandos Estruturados**: 10 comandos que cobrem desde setup até implementação completa
 2. **Templates Modernos**: Especificações focadas em user value, não em implementação
 3. **Automação**: Scripts para criar branches, issues, checklists automaticamente
 4. **Rastreabilidade**: Conexão clara entre spec → plan → tasks → code
@@ -184,27 +185,35 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
    - Cria branch e estrutura de diretórios
    - Aceita parâmetros via CLI e JSON
 
+10. **Comando /speckit.init**
+    - Configura estrutura inicial do SPEC KIT no repositório
+    - Cria diretórios `.specify/`, `specs/`, `.github/prompts/`
+    - Instala templates de especificação
+    - Configura scripts de automação
+    - Detecta e preserva estrutura existente
+    - Prompt interativo para preferências de configuração
+
 ### Should Have (P1)
 
-10. **Comando /speckit.constitution**
+11. **Comando /speckit.constitution**
     - Documenta decisões importantes do projeto
     - Mantém histórico de mudanças de escopo
     - Registra trade-offs e rationale
     - Cria `constitution.md` versionado
 
-11. **Comando /speckit.implement**
+12. **Comando /speckit.implement**
     - Guia passo-a-passo na implementação
     - Sugere ordem de desenvolvimento
     - Valida contra checklist
     - Alerta sobre dependências não resolvidas
 
-12. **Dashboard de Progresso**
+13. **Dashboard de Progresso**
     - Visualização do status de todas as features
     - Métricas de qualidade agregadas
     - Timeline de implementação
     - Gerado automaticamente em `README.md`
 
-13. **Validação Automática**
+14. **Validação Automática**
     - GitHub Action que valida specs em PRs
     - Verifica completude obrigatória
     - Roda analyze automaticamente
@@ -212,23 +221,23 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
 
 ### Nice to Have (P2)
 
-14. **Integração com Project Boards**
+15. **Integração com Project Boards**
     - Sincroniza tasks com GitHub Projects
     - Atualiza status automaticamente
     - Move cards conforme progresso
 
-15. **Templates Específicos por Tipo**
+16. **Templates Específicos por Tipo**
     - Template para APIs
     - Template para UIs
     - Template para integrações
     - Template para refatorações
 
-16. **Geração de Diagramas**
+17. **Geração de Diagramas**
     - Diagrama de arquitetura automático
     - Fluxos de usuário visuais
     - Modelo de dados em Mermaid
 
-17. **Exportação para Formatos**
+18. **Exportação para Formatos**
     - PDF para apresentações
     - Confluence para wikis
     - Notion para documentação
@@ -249,8 +258,9 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
 
 ### Scalability
 - Suportar até 100 features simultâneas em um repositório
-- Specs podem ter até 10.000 linhas sem degradação
+- Specs têm hard limit de 5,000 linhas (rejeita e orienta split)
 - Tasks.json pode ter até 500 tarefas
+- Tasks.json validado com JSON Schema para garantir estrutura
 
 ### Reliability
 - Comandos devem ser idempotentes quando possível
@@ -284,7 +294,7 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
 6. **Rastreabilidade**: 100% das issues linkadas a specs
 
 ### Definition of Done
-- [ ] Todos os 9 comandos principais implementados e testados
+- [ ] Todos os 10 comandos principais implementados e testados
 - [ ] Templates criados e validados em projeto piloto
 - [ ] Scripts bash e powershell funcionando em todos os SOs
 - [ ] Documentação completa (README, guias, exemplos)
@@ -482,10 +492,11 @@ specs/1-user-authentication/
 ## Constraints & Limitations
 
 ### Technical Constraints
-- Limitado a repositórios Git hospedados no GitHub
+- Limitado a repositórios Git hospedados no GitHub (arquitetura modular permite extensões futuras)
 - Requer GitHub Copilot (pago) para funcionalidade completa
 - Scripts shell podem ter problemas em Windows sem WSL/Git Bash
-- Tamanho máximo de spec limitado pela janela de contexto do Copilot
+- Specs limitadas a 5,000 linhas (hard limit com orientação para split)
+- Tasks.json deve seguir JSON Schema definido
 
 ### Business Constraints
 - Budget: R$ 0 (projeto open source)
@@ -580,21 +591,44 @@ specs/1-user-authentication/
 
 ---
 
-## Open Questions
+## Clarification Decisions
 
-1. **Qual nível de integração desejamos com GitHub Projects?** Apenas criar issues ou também sincronizar status?
+### Session 2025-11-19
 
-2. **Devemos suportar outros repositórios além do GitHub?** (GitLab, Bitbucket, Gitea)
+1. **Q: Qual nível de integração desejamos com GitHub Projects?**
+   - **A**: Começar sem integração, adicionar como P2 (Nice to Have) posteriormente
+   - **Rationale**: Foco inicial em features essenciais, GitHub Projects pode ser adicionado depois com base em feedback
+   - **Impact**: Req #14 permanece como P2, não bloqueia MVP
 
-3. **Como lidar com specs grandes que não cabem no contexto do Copilot?** Implementar chunking? Resumos automáticos?
+2. **Q: Devemos suportar outros repositórios além do GitHub?**
+   - **A**: GitHub-only com arquitetura modular para facilitar extensões futuras
+   - **Rationale**: GitHub é amplamente adotado na FATEC, arquitetura modular permite adicionar GitLab/Bitbucket futuramente
+   - **Impact**: Reduz escopo inicial, mantém qualidade, permite extensibilidade
 
-4. **Qual formato de tasks.json usar?** JSON puro, YAML, ou formato compatível com ferramenta específica?
+3. **Q: Como lidar com specs grandes que não cabem no contexto do Copilot?**
+   - **A**: Hard limit de 5,000 linhas com rejeição e orientação para split
+   - **Rationale**: Specs maiores indicam necessidade de quebrar feature em partes menores, promove modularidade
+   - **Impact**: Adicionado a Non-Functional Requirements / Scalability
 
-5. **Precisamos de controle de versão de specs?** Como rastrear mudanças ao longo do tempo?
+4. **Q: Qual formato de tasks.json usar?**
+   - **A**: JSON com JSON Schema validation
+   - **Rationale**: Melhor balance entre compatibilidade universal, validação estrita, e suporte IDE
+   - **Impact**: Tasks.json terá schema definido para validação automática
 
-6. **Devemos criar um command `/speckit.init` para setup inicial do repositório?**
+5. **Q: Precisamos de controle de versão de specs?**
+   - **A**: Semantic versioning (1.0.0, 1.1.0, etc.) no frontmatter + Revision History
+   - **Rationale**: Versionamento explícito facilita comunicação de mudanças e rastreamento
+   - **Impact**: Template de spec incluirá campo de versão, comandos atualizarão versão automaticamente
 
-7. **Como medir efetivamente o sucesso do framework?** Quais métricas além das listadas?
+6. **Q: Devemos criar um command `/speckit.init` para setup inicial do repositório?**
+   - **A**: Sim, criar `/speckit.init` para setup automatizado
+   - **Rationale**: Reduz fricção de adoção, garante configuração consistente, excelente primeira impressão
+   - **Impact**: Adicionar comando #10 (será P0 - Must Have)
+
+7. **Q: Como medir efetivamente o sucesso do framework?**
+   - **A**: Manter os 6 KPIs atuais (suficiente)
+   - **Rationale**: KPIs existentes cobrem dimensões críticas sem criar overhead de medição
+   - **Impact**: Nenhuma alteração na seção Success Criteria
 
 ---
 
@@ -650,7 +684,8 @@ Explicitamente NÃO incluído nesta especificação:
 
 | Date | Version | Author | Changes |
 |------|---------|--------|---------|
-| 2025-11-19 | 0.1 | GitHub Copilot | Initial draft - complete specification |
+| 2025-11-19 | 0.1.0 | GitHub Copilot | Initial draft - complete specification |
+| 2025-11-19 | 0.2.0 | GitHub Copilot | Clarification session completed - resolved 7 open questions, added /speckit.init command (P0), updated constraints and scalability requirements |
 
 ---
 
