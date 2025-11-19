@@ -1,7 +1,7 @@
 # SPEC KIT Framework - Modernização do Repositório ModeloProjetoSoftware
 
 **Status**: Draft  
-**Version**: 0.1.0  
+**Version**: 0.3.0  
 **Created**: 2025-11-19  
 **Last Updated**: 2025-11-19  
 **Owner**: FATEC Franca - Equipe de Gerenciamento de Projetos  
@@ -109,6 +109,20 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
 - [ ] Posso marcar itens como concluídos durante o desenvolvimento
 - [ ] Comando `/speckit.implement` me guia na implementação seguindo o plano
 
+#### Cenário 5: Aluno Aprendendo Gerenciamento de Projetos
+**As a** aluno da FATEC cursando Engenharia de Software  
+**I want to** acessar material didático estruturado sobre gerenciamento de projetos de software  
+**So that** eu aprenda as etapas do processo, boas práticas e conceitos fundamentais de forma progressiva e prática
+
+**Acceptance Criteria**:
+- [ ] Wiki contém guias passo-a-passo para cada comando do SPEC KIT
+- [ ] Cada página do wiki explica o "porquê" antes do "como"
+- [ ] Exemplos práticos usando o próprio repositório como caso de uso
+- [ ] Glossário de termos técnicos em português com exemplos
+- [ ] Exercícios práticos ao final de cada seção principal
+- [ ] Progressão clara: conceitos básicos → intermediários → avançados
+- [ ] Links entre wiki e specs/plans demonstrando aplicação real
+
 ### Edge Cases
 - Especificação muito vaga → clarify deve fazer perguntas até ter clareza
 - Feature muito complexa → plan deve sugerir quebrar em múltiplas features
@@ -193,27 +207,51 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
     - Detecta e preserva estrutura existente
     - Prompt interativo para preferências de configuração
 
+11. **Wiki Instrucional Modernizado**
+    - Transformar conteúdo PMBOK/RUP em guias práticos do SPEC KIT
+    - Estrutura didática: Introdução → Conceitos → Prática → Exercícios
+    - Páginas principais:
+      - **Home**: Visão geral do SPEC KIT, diferenças PMBOK vs. Ágil
+      - **Guia Rápido**: Setup em 5 minutos, primeiro spec em 30 minutos
+      - **Comandos Detalhados**: Uma página por comando com exemplos
+      - **Boas Práticas**: Padrões, anti-patterns, dicas
+      - **Glossário**: Termos técnicos em PT-BR com contexto
+      - **FAQ**: Dúvidas comuns de alunos
+      - **Exercícios Práticos**: Desafios progressivos com gabaritos
+    - Linguagem acessível para estudantes (evitar jargão excessivo)
+    - Exemplos usando projeto real da FATEC como caso de uso
+    - Diagramas e fluxogramas visuais (Mermaid)
+    - Seção "Erros Comuns" em cada página
+
 ### Should Have (P1)
 
-11. **Comando /speckit.constitution**
+12. **Comando /speckit.constitution**
     - Documenta decisões importantes do projeto
     - Mantém histórico de mudanças de escopo
     - Registra trade-offs e rationale
     - Cria `constitution.md` versionado
 
-12. **Comando /speckit.implement**
+13. **Migração de Conteúdo do Wiki Legado**
+    - Mapear conteúdo PMBOK/RUP existente para nova estrutura
+    - Preservar informações válidas (Gerenciamento de Riscos, Custos, etc.)
+    - Criar página "Apêndice: PMBOK/RUP" com conteúdo histórico
+    - Adicionar notas de comparação: "No PMBOK fazíamos X, no SPEC KIT fazemos Y"
+    - Manter referências a projetos antigos como exemplos de evolução
+    - Documentar lições aprendidas da transição
+
+14. **Comando /speckit.implement**
     - Guia passo-a-passo na implementação
     - Sugere ordem de desenvolvimento
     - Valida contra checklist
     - Alerta sobre dependências não resolvidas
 
-13. **Dashboard de Progresso**
+15. **Dashboard de Progresso**
     - Visualização do status de todas as features
     - Métricas de qualidade agregadas
     - Timeline de implementação
     - Gerado automaticamente em `README.md`
 
-14. **Validação Automática**
+16. **Validação Automática**
     - GitHub Action que valida specs em PRs
     - Verifica completude obrigatória
     - Roda analyze automaticamente
@@ -221,26 +259,32 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
 
 ### Nice to Have (P2)
 
-15. **Integração com Project Boards**
+17. **Integração com Project Boards**
     - Sincroniza tasks com GitHub Projects
     - Atualiza status automaticamente
     - Move cards conforme progresso
 
-16. **Templates Específicos por Tipo**
+18. **Templates Específicos por Tipo**
     - Template para APIs
     - Template para UIs
     - Template para integrações
     - Template para refatorações
 
-17. **Geração de Diagramas**
+19. **Geração de Diagramas**
     - Diagrama de arquitetura automático
     - Fluxos de usuário visuais
     - Modelo de dados em Mermaid
 
-18. **Exportação para Formatos**
+20. **Exportação para Formatos**
     - PDF para apresentações
     - Confluence para wikis
     - Notion para documentação
+
+21. **Wiki Interativo com Exercícios Gamificados**
+    - Sistema de badges/conquistas para progresso
+    - Desafios práticos com validação automática
+    - Leaderboard de aprendizado (opcional, opt-in)
+    - Quiz interativo ao final de cada módulo
 
 ---
 
@@ -292,12 +336,15 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
 4. **Satisfação**: NPS > 8 de estudantes e professores
 5. **Completude**: 90% das specs têm todos os campos obrigatórios preenchidos
 6. **Rastreabilidade**: 100% das issues linkadas a specs
+7. **Aprendizado**: 70% dos alunos completam Guia Rápido do Wiki antes da primeira spec
 
 ### Definition of Done
 - [ ] Todos os 10 comandos principais implementados e testados
 - [ ] Templates criados e validados em projeto piloto
 - [ ] Scripts bash e powershell funcionando em todos os SOs
 - [ ] Documentação completa (README, guias, exemplos)
+- [ ] Wiki modernizado com todas as páginas principais em PT-BR
+- [ ] Guia Rápido do Wiki validado com 10 alunos (tempo < 1h para completar)
 - [ ] 3 projetos piloto completados usando o framework
 - [ ] Feedback positivo (> 4/5) de pelo menos 20 usuários
 - [ ] GitHub Actions configurado para validação automática
@@ -374,6 +421,17 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
 
 ### User Flow
 
+0. **Aprender o Processo (Novo Aluno)**
+   ```
+   User: Acessa Wiki → Home do SPEC KIT
+   → System apresenta Guia Rápido com 3 seções:
+      1. Por que SPEC KIT? (5 min de leitura)
+      2. Setup inicial (5 min hands-on)
+      3. Primeira spec (30 min hands-on)
+   → User completa exercício guiado
+   → System sugere próxima página: "Comandos Detalhados"
+   ```
+
 1. **Iniciar Nova Feature**
    ```
    User: /speckit.specify Adicionar autenticação de usuários com OAuth2
@@ -381,6 +439,7 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
    → System cria specs/1-user-authentication/spec.md
    → System popula spec com conteúdo inicial
    → System identifica 3 clarificações necessárias
+   → System sugere: "📚 Dúvidas? Veja Wiki: Comandos/Specify"
    ```
 
 2. **Clarificar Ambiguidades**
@@ -664,6 +723,10 @@ Explicitamente NÃO incluído nesta especificação:
 - Tradução automática entre idiomas
 - AI para code review ou sugestões de implementação
 - Gerenciamento de releases ou versões do produto final
+- Plataforma de e-learning completa (Moodle, Canvas, etc.)
+- Sistema de avaliação/notas automático
+- Fórum de discussão ou chat integrado no wiki
+- Certificações ou credenciais formais
 
 ---
 
@@ -686,6 +749,7 @@ Explicitamente NÃO incluído nesta especificação:
 |------|---------|--------|---------|
 | 2025-11-19 | 0.1.0 | GitHub Copilot | Initial draft - complete specification |
 | 2025-11-19 | 0.2.0 | GitHub Copilot | Clarification session completed - resolved 7 open questions, added /speckit.init command (P0), updated constraints and scalability requirements |
+| 2025-11-19 | 0.3.0 | GitHub Copilot | Added wiki modernization requirements - P0 requirement for instructional wiki, P1 for legacy content migration, P2 for gamification, new user scenario for student learning, updated KPIs and DoD |
 
 ---
 

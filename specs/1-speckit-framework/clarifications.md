@@ -326,5 +326,70 @@ This clarification session resolved 7 open questions from the initial specificat
 
 ---
 
-**Session Status**: ✅ COMPLETE  
+---
+
+## Post-Session Addition: Wiki Modernization
+
+### 8. Wiki como Material Instrucional
+
+**Context**: O repositório possui um wiki/ existente com 20 páginas de conteúdo PMBOK/RUP (2016-2018) que não está contemplado na especificação inicial.
+
+**Decision**: Adicionar **Wiki Instrucional Modernizado** como requisito **P0 (Must Have)**
+
+**Rationale**:
+- Objetivo principal do repositório é **instrução de alunos da FATEC**
+- Wiki deve ser o primeiro ponto de contato para aprendizado
+- Material didático progressivo reduz curva de aprendizado
+- Todo conteúdo em português PT-BR para público acadêmico brasileiro
+- Conteúdo legado PMBOK/RUP pode ser preservado como referência histórica
+
+**Impact on Specification**:
+- Novo requisito #11 adicionado como **P0 (Must Have)**
+- Novo cenário de usuário: "Aluno Aprendendo Gerenciamento de Projetos"
+- Requisito P1 #13: Migração de conteúdo do wiki legado
+- Requisito P2 #21: Wiki interativo com gamificação
+- Novo KPI #7: Taxa de completude do Guia Rápido do Wiki
+- User Flow atualizado com etapa 0: "Aprender o Processo"
+- Version bump: 0.2.0 → 0.3.0
+
+**Wiki Structure** (documento detalhado em `wiki-structure.md`):
+
+**Nível 1: Fundamentos**
+- Home.md: Visão geral do SPEC KIT
+- Guia-Rapido.md: Setup em 5 min + primeira spec em 30 min
+- Glossario.md: Termos técnicos em PT-BR com exemplos
+
+**Nível 2: Comandos** (10 páginas)
+- Comandos/Init.md através Comandos/Constitution.md
+- Estrutura padrão: O que faz? → Quando usar? → Como funciona? → Exemplo → Exercício → Erros Comuns
+
+**Nível 3: Boas Práticas**
+- Boas-Praticas.md: Padrões, anti-patterns, checklist de qualidade
+- FAQ.md: Perguntas frequentes categorizadas
+
+**Nível 4: Exercícios Práticos**
+- Exercicios/Modulo-1-Setup.md
+- Exercicios/Modulo-2-Planejamento.md
+- Exercicios/Projeto-Final.md (projeto integrador 4-6h)
+
+**Nível 5: Referência**
+- Apendice-PMBOK.md: Conteúdo histórico preservado
+- Comparativo: antes (PMBOK) vs. depois (SPEC KIT)
+- Mapeamento de conceitos
+
+**Success Metrics for Wiki**:
+- 70% dos alunos completam Guia Rápido em < 1h
+- Bounce rate < 40%
+- Feedback > 4/5 estrelas
+- 50% menos dúvidas repetitivas para professores
+
+**Migration Timeline**: 5 sprints (8 semanas)
+- Sprint 1-2: Estrutura core + comandos
+- Sprint 3: Exercícios práticos
+- Sprint 4: Migração de conteúdo legado
+- Sprint 5: Refinamento com teste piloto
+
+---
+
+**Session Status**: ✅ COMPLETE (Updated with wiki requirements)  
 **Next Command**: `/speckit.plan 1` to generate implementation plan
