@@ -1,50 +1,35 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# SPEC KIT Framework Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Docs-First Templates
+Every feature starts with the SPEC KIT templates (spec, plan, research, contracts, quickstart); content must focus on WHAT/WHY, with implementation kept in later phases. Updates to automation must preserve template compatibility.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. GitHub-Only Integration
+Automation targets GitHub repositories using Git and GitHub CLI. No other SCM/hosting is supported. Never log tokens or secrets; prefer `gh auth status` to verify authentication before operations.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Tested Automation (NON-NEGOTIABLE)
+Shell and PowerShell scripts must be smoke-tested (`bash -euo pipefail` and `pwsh -NoLogo -NoProfile`) before release. Failure handling must be explicit; scripts should support dry-run/help modes.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Cross-Platform Parity
+Features must support Linux/macOS (Bash) and Windows (PowerShell) with equivalent capabilities. Degradations must be documented, and portable defaults are preferred over OS-specific logic.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Traceability and Versioning
+Maintain linkage spec → plan → tasks → issues → wiki. Templates and schemas use semantic versioning; changes must document rationale and migration guidance.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Operational Constraints
+- Performance: commands <30s (p95); spec generation <2min; batch issue creation <10s for 20 tasks.
+- Limits: spec files <=5,000 lines; tasks.json <=500 tasks; GitHub-only scope.
+- Budget: R$0; avoid external paid dependencies. Optional tools (shellcheck, ajv) must degrade gracefully.
+- Security: no secret exposure in logs; prefer local auth flows (gh CLI) and dry-run options.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Workflow and Gates
+- Planning Gate: Technical context must be defined; Constitution Check recorded in plan.md before research starts.
+- Testing Gate: Automation changes require smoke-test coverage for Bash and PowerShell paths.
+- Traceability Gate: New commands or wiki changes must update relevant spec/plan/research/contracts/quickstart files and link to schema versions.
+- Exception Handling: Any violation must be justified in plan.md under Complexity Tracking with a simpler alternative rejected.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+- This constitution supersedes other process documents for SPEC KIT work. Amendments require version bump, rationale, and date update. Reviews must verify adherence to principles and gates.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-11-21 | **Last Amended**: 2025-11-21

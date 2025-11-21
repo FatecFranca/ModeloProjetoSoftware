@@ -1,0 +1,448 @@
+openapi: 3.0.3
+info:
+  title: SPEC KIT Framework API
+  version: 0.1.0
+  description: Endpoints mirroring SPEC KIT commands for automation and validation.
+servers:
+  - url: https://api.speckit.local
+    description: Local CLI adapter (gh CLI + filesystem)
+paths:
+  /speckit/init:
+    post:
+      summary: Initialize SPEC KIT structure in a repository
+      operationId: speckitInit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [repo_name, owner, starting_spec_number]
+              properties:
+                repo_name:
+                  type: string
+                owner:
+                  type: string
+                starting_spec_number:
+                  type: integer
+                  minimum: 1
+                enable_actions:
+                  type: boolean
+                  default: false
+      responses:
+        "201":
+          description: Structure created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  created_paths:
+                    type: array
+                    items:
+                      type: string
+        "400":
+          description: Invalid input or repo already initialized
+  /speckit/specs:
+    post:
+      summary: Create a new specification (equivalent to /speckit.specify)
+      operationId: speckitSpecify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SpecificationInput"
+      responses:
+        "201":
+          description: Spec created with clarifications list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Specification"
+  /speckit/specs/{specId}/clarify:
+    post:
+      summary: Run clarification on a spec with Q&A updates
+      operationId: speckitClarify
+      parameters:
+        - $ref: "#/components/parameters/specId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answers:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/ClarificationAnswer"
+      responses:
+        "200":
+          description: Clarifications applied
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Specification"
+  /speckit/specs/{specId}/analyze:
+    post:
+      summary: Analyze spec completeness and testability
+      operationId: speckitAnalyze
+      parameters:
+        - $ref: "#/components/parameters/specId"
+      responses:
+        "200":
+          description: Analysis report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalysisReport"
+  /speckit/specs/{specId}/plan:
+    post:
+      summary: Generate a technical plan from the spec
+      operationId: speckitPlan
+      parameters:
+        - $ref: "#/components/parameters/specId"
+      responses:
+        "201":
+          description: Plan created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Plan"
+  /speckit/specs/{specId}/tasks:
+    post:
+      summary: Generate tasks from the plan
+      operationId: speckitTasks
+      parameters:
+        - $ref: "#/components/parameters/specId"
+      responses:
+        "201":
+          description: Tasks JSON created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+  /speckit/specs/{specId}/tasks/issues:
+    post:
+      summary: Create GitHub issues from tasks (taskstoissues)
+      operationId: speckitTasksToIssues
+      parameters:
+        - $ref: "#/components/parameters/specId"
+      responses:
+        "201":
+          description: Issues created on GitHub
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IssueSummary"
+  /speckit/specs/{specId}/checklist:
+    post:
+      summary: Generate implementation checklist
+      operationId: speckitChecklist
+      parameters:
+        - $ref: "#/components/parameters/specId"
+      responses:
+        "201":
+          description: Checklist generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Checklist"
+  /speckit/specs/{specId}/implement:
+    post:
+      summary: Guide implementation against checklist and tasks
+      operationId: speckitImplement
+      parameters:
+        - $ref: "#/components/parameters/specId"
+      responses:
+        "200":
+          description: Implementation guidance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  steps:
+                    type: array
+                    items:
+                      type: string
+                  unresolved_dependencies:
+                    type: array
+                    items:
+                      type: string
+  /speckit/constitution:
+    post:
+      summary: Record constitution decisions and versioning
+      operationId: speckitConstitution
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConstitutionInput"
+      responses:
+        "201":
+          description: Constitution stored
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Constitution"
+components:
+  parameters:
+    specId:
+      name: specId
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+  schemas:
+    SpecificationInput:
+      type: object
+      required: [short_name, title, summary]
+      properties:
+        short_name:
+          type: string
+          pattern: "^[0-9]+-[a-z0-9-]+$"
+        title:
+          type: string
+        summary:
+          type: string
+        owner:
+          type: string
+        stakeholders:
+          type: array
+          items:
+            type: string
+    Specification:
+      allOf:
+        - $ref: "#/components/schemas/SpecificationInput"
+        - type: object
+          properties:
+            id:
+              type: integer
+            status:
+              type: string
+              enum: [Draft, In Review, Approved, In Development, Complete]
+            requirements:
+              type: array
+              items:
+                $ref: "#/components/schemas/Requirement"
+            success_criteria:
+              type: array
+              items:
+                type: string
+            risks:
+              type: array
+              items:
+                $ref: "#/components/schemas/Risk"
+            plan:
+              $ref: "#/components/schemas/Plan"
+    Requirement:
+      type: object
+      required: [id, type, priority, description, acceptance_criteria]
+      properties:
+        id:
+          type: string
+          pattern: "^REQ-[0-9]{3,}$"
+        type:
+          type: string
+          enum: [Functional, Non-Functional]
+        priority:
+          type: string
+          enum: [P0, P1, P2]
+        description:
+          type: string
+        acceptance_criteria:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+          enum: [Pending, Approved, Implemented, Tested]
+    Plan:
+      type: object
+      properties:
+        spec_id:
+          type: integer
+        architecture:
+          type: string
+        technologies:
+          type: array
+          items:
+            type: string
+        phases:
+          type: array
+          items:
+            $ref: "#/components/schemas/Phase"
+        technical_decisions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Decision"
+    Phase:
+      type: object
+      required: [number, name]
+      properties:
+        number:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+        scope:
+          type: string
+        exit_criteria:
+          type: array
+          items:
+            type: string
+    Task:
+      type: object
+      required: [id, title, phase, estimate_hours, status]
+      properties:
+        id:
+          type: string
+          pattern: "^TASK-[0-9]{3,}$"
+        title:
+          type: string
+        description:
+          type: string
+        phase:
+          type: integer
+          minimum: 1
+        estimate_hours:
+          type: number
+          minimum: 0
+        dependencies:
+          type: array
+          items:
+            type: string
+        assignee:
+          type: string
+        status:
+          type: string
+          enum: [Not Started, In Progress, In Review, Done]
+    Checklist:
+      type: object
+      properties:
+        spec_id:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChecklistItem"
+        completion_percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+    ChecklistItem:
+      type: object
+      required: [id, description, category, completed]
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+          enum: [Functional, Non-Functional, Testing, Documentation]
+        completed:
+          type: boolean
+    ClarificationAnswer:
+      type: object
+      required: [question_id, answer]
+      properties:
+        question_id:
+          type: string
+        answer:
+          type: string
+    AnalysisReport:
+      type: object
+      properties:
+        score:
+          type: number
+          minimum: 0
+          maximum: 10
+        issues:
+          type: array
+          items:
+            $ref: "#/components/schemas/AnalysisIssue"
+    AnalysisIssue:
+      type: object
+      properties:
+        severity:
+          type: string
+          enum: [Critical, Major, Minor]
+        message:
+          type: string
+        section:
+          type: string
+    Decision:
+      type: object
+      properties:
+        title:
+          type: string
+        rationale:
+          type: string
+        alternatives:
+          type: array
+          items:
+            type: string
+    Risk:
+      type: object
+      properties:
+        description:
+          type: string
+        probability:
+          type: string
+        impact:
+          type: string
+        mitigation:
+          type: string
+    IssueSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+    ConstitutionInput:
+      type: object
+      required: [version, principles]
+      properties:
+        version:
+          type: string
+        ratified_at:
+          type: string
+          format: date
+        principles:
+          type: array
+          items:
+            type: string
+        gates:
+          type: array
+          items:
+            type: string
+    Constitution:
+      allOf:
+        - $ref: "#/components/schemas/ConstitutionInput"
+        - type: object
+          properties:
+            last_amended_at:
+              type: string
+              format: date
+  securitySchemes:
+    ghAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: GitHub token
+security:
+  - ghAuth: []
