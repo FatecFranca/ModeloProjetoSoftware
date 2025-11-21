@@ -4,6 +4,9 @@
 **Created**: [DATE]  
 **Status**: Draft  
 **Input**: User description: "$ARGUMENTS"
+**Version**: 0.1.0 (atualize a cada mudança relevante)
+
+> Limites: mantenha este arquivo < 5.000 linhas; se ultrapassar, divida a feature. Garanta rastreabilidade: spec → plan → tasks → issues → wiki.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -113,3 +116,11 @@
 - **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
 - **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
 - **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+
+## Checklist de completude da spec
+
+- [ ] Todas as user stories possuem prioridade e teste independente
+- [ ] Requisitos funcionais e não-funcionais claros e testáveis (sem [NEEDS CLARIFICATION])
+- [ ] Limites respeitados (<5.000 linhas) ou plano de divisão
+- [ ] Versão e data atualizadas; rastreabilidade documentada
+- [ ] Edge cases mapeados; cenários negativos incluídos

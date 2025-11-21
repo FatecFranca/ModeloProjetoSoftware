@@ -15,6 +15,13 @@ Transformar o repositório ModeloProjetoSoftware em um framework moderno de gere
 
 ---
 
+## Clarifications
+
+### Session 2025-11-21
+
+- Q: Qual abordagem de observabilidade vamos usar para acompanhar execuções dos comandos? → A: Logs estruturados por comando e tempos p95 registrados a cada execução.
+- Q: Como padronizar tratamento de falhas externas (gh/non-network/permissões) nos comandos? → A: Abortar com mensagem curta + ação corretiva padrão, mantendo idempotência/dry-run.
+
 ## Problem Statement
 
 ### Current Situation
@@ -310,6 +317,10 @@ Implementar o SPEC KIT Framework - um sistema de gerenciamento de projetos basea
 - Comandos devem ser idempotentes quando possível
 - Backup automático antes de modificações destrutivas
 - Rollback capability para alterações em specs
+
+### Observability
+- Logs estruturados por comando
+- Registro de tempos p95 por execução para validar metas de performance
 
 ### Usability
 - Comandos seguem padrão consistente: `/speckit.<comando> [args]`

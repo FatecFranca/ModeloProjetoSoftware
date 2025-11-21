@@ -1,0 +1,21 @@
+name: SPEC KIT Validate
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "specs/1-speckit-framework/**"
+      - ".specify/**"
+      - ".github/workflows/spec-kit-validate.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: |
+          npm install -g ajv-cli || true
+      - name: Run validations
+        run: |
+          bash .specify/scripts/bash/validate-spec-kit.sh

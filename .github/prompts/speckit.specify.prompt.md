@@ -16,16 +16,19 @@ Create a detailed specification document from a feature description. This comman
    - Extract key requirements
    - Identify stakeholders
    - Determine scope
+   - Enforce branch name format: `<number>-<short-name>` (kebab-case)
 
 2. **Generate Specification Structure**
    - Use template from `.specify/templates/spec-template.md`
    - Fill in all mandatory sections
    - Add relevant optional sections
+   - Set version/date and keep spec <5.000 linhas (divida se exceder)
 
 3. **Create Branch & Directory**
    - Generate feature branch name: `<number>-<short-name>`
    - Create `specs/<number>-<short-name>/` directory
    - Initialize `spec.md` file
+   - Populate frontmatter (status, owner, stakeholders) e checklist de completude
 
 4. **Generate Specification Content**
    - **Problem Statement**: Define the problem clearly
@@ -40,6 +43,7 @@ Create a detailed specification document from a feature description. This comman
    - Verify requirements are testable
    - Check success criteria are measurable
    - Confirm no implementation details leak into spec
+   - Adicionar checklist de completude e rastreabilidade spec → plan → tasks
 
 6. **Output**
    - Spec file path

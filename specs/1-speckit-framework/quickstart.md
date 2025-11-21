@@ -4,6 +4,7 @@
 - Git + GitHub CLI autenticado (`gh auth status`)
 - Bash (Linux/macOS) e PowerShell 7 (Windows)
 - VS Code com GitHub Copilot instalado
+- Defina a feature ativa se estiver fora de um branch git: `export SPECIFY_FEATURE="1-speckit-framework"`
 
 ## Passo a passo
 1. **Inicialize o repositório**  

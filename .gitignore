@@ -1,3 +1,15 @@
 #lista de pastas e arquivos que não serão versionados
 composer.phar
 /vendor/
+# editor/OS leftovers
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+# logs and local env
+*.log
+.env
+.env.*
+# temp files
+*.tmp
+*.swp

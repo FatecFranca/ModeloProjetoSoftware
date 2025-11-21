@@ -154,3 +154,18 @@ EOF
 check_file() { [[ -f "$1" ]] && echo "  ✓ $2" || echo "  ✗ $2"; }
 check_dir() { [[ -d "$1" && -n $(ls -A "$1" 2>/dev/null) ]] && echo "  ✓ $2" || echo "  ✗ $2"; }
 
+# Helper: non-interactive gh auth status (returns 0/1, prints guidance on failure)
+gh_auth_check() {
+    if command -v gh >/dev/null 2>&1; then
+        if gh auth status >/dev/null 2>&1; then
+            echo "INFO: gh auth status OK" >&2
+            return 0
+        else
+            echo "ERROR: gh não autenticado; rode 'gh auth login' e reexecute" >&2
+            return 1
+        fi
+    else
+        echo "WARNING: gh CLI não encontrado; recursos GitHub serão pulados" >&2
+        return 1
+    fi
+}
