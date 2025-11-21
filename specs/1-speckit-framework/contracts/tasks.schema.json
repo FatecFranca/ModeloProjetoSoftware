@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SPEC KIT Tasks",
+  "type": "array",
+  "maxItems": 500,
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "title",
+      "description",
+      "phase",
+      "estimate_hours",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^TASK-[0-9]{3,}$"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120
+      },
+      "description": {
+        "type": "string",
+        "minLength": 1
+      },
+      "phase": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "estimate_hours": {
+        "type": "number",
+        "minimum": 0,
+        "multipleOf": 0.5
+      },
+      "dependencies": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^TASK-[0-9]{3,}$"
+        },
+        "uniqueItems": true
+      },
+      "assignee": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "Not Started",
+          "In Progress",
+          "In Review",
+          "Done"
+        ]
+      },
+      "labels": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "priority": {
+        "type": "string",
+        "enum": [
+          "P0",
+          "P1",
+          "P2"
+        ]
+      }
+    },
+    "additionalProperties": false
+  }
+}

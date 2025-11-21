@@ -8,6 +8,15 @@ informação principal do projeto, o que é, qual objetivo, etc.
 
 Se já existir pode colocar os links de vídeos, Recursos do sistema, Forum de discução, etc.
 
+## Onboarding rápido (SPEC KIT)
+
+- Verifique pré-requisitos: Git, GitHub CLI autenticado (`gh auth status`), Bash ou PowerShell.
+- Crie/ative a feature: `SPECIFY_FEATURE="1-speckit-framework"` (ou rode `/speckit.init` quando disponível).
+- Gere a spec inicial: `/speckit.specify "Descrição curta da feature"` → diretório `specs/N-nome/`.
+- Refine: `/speckit.clarify N` e `/speckit.analyze N`.
+- Planeje e tasks: `/speckit.plan N` e `/speckit.tasks N`.
+- Consulte `specs/1-speckit-framework/quickstart.md` para mais detalhes.
+
 ## Guia de Instalação
 
 * Se for o caso colocar o guia de instalação do software

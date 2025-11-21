@@ -1,0 +1,11 @@
+{
+  "default_owner": "FATEC Franca",
+  "starting_spec_number": 1,
+  "branch_prefix": "",
+  "github_actions_validation": true,
+  "require_analyze_score_min": 7,
+  "spec_max_lines": 5000,
+  "tasks_max": 500,
+  "feature_root": "specs",
+  "templates_dir": ".specify/templates"
+}
